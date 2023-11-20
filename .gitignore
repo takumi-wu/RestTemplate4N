@@ -1,0 +1,5 @@
+RestTemplate/bin/
+RestTemplate/debug/
+RestTemplate/obj/
+packages/
+.vs/
