@@ -9,6 +9,6 @@ namespace RestTemplate.http
 {
     public interface IRestResponseMessageMappingHandler
     {
-        Object Mapping(RequestWrapper requestWrapper, HttpResponseMessage responseMessage);
+        Object Mapping(RequestWrapper requestWrapper, string responseMessage);
     }
 }

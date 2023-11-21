@@ -64,7 +64,7 @@ namespace RestTemplate.proxy
                     HttpResponseMessage response = null;
                     HttpRequestMessage request = new HttpRequestMessage(isPost?HttpMethod.Post:HttpMethod.Get, requestUrl);
 
-                    // 设置HTTP Header
+                    // 设置HTTP Header 
        
                     request.Content = content;
                     response = await client.SendAsync(request);

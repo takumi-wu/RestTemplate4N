@@ -34,6 +34,10 @@ namespace RestTemplate.http
         /// </summary>
         public HttpContent httpRequestContent { get; set; }
 
+        public Dictionary<string, string> httpRequestGetParam { get; set; }
+
+        public Dictionary<string,string> httpRequestHeader { get; set; }
+
         /// <summary>
         /// 方法响应返回的结果
         /// </summary>

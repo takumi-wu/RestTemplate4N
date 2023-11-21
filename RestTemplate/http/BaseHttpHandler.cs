@@ -18,7 +18,7 @@ namespace RestTemplate.http
         public Object SendHttpRequest(Object target ,MethodBase method, IMethodCallMessage callMessage)
         {
             RequestWrapper requestWrapper = WrapperRequestParam(target, method, callMessage);
-            HttpResponseMessage responseMessage = SendHttp(requestWrapper);
+            string responseMessage = SendHttp(requestWrapper).Result;
             return restResponseMessageMappingHandler.Mapping(requestWrapper, responseMessage);
         }
 
@@ -27,7 +27,7 @@ namespace RestTemplate.http
         /// </summary>
         /// <param name="requestWrapper"></param>
         /// <returns></returns>
-        protected abstract HttpResponseMessage SendHttp(RequestWrapper requestWrapper);
+        protected abstract  Task<string> SendHttp(RequestWrapper requestWrapper);
 
         private RequestWrapper WrapperRequestParam(object target, MethodBase method, IMethodCallMessage callMessage)
         {
@@ -35,6 +35,8 @@ namespace RestTemplate.http
             string url = "";
             HttpMethod httpMethod = new HttpMethod("POST");
             object[] args = callMessage.Args;
+            // 封装请求内容和请求头
+            wrapperRequestContent(args, requestWrapper);
             RestTemplateAttribute attr = (RestTemplateAttribute)target.GetType().GetCustomAttribute(typeof(RestTemplateAttribute));
             if (attr == null)
             {
@@ -61,9 +63,16 @@ namespace RestTemplate.http
                     httpMethod = new HttpMethod(((HttpRequestMappingAttribute)methodAttr).HttpMethod);
                 }
             }
-            // 封装请求内容和请求头
-            wrapperRequestContent(args, requestWrapper.httpRequestContent);
-
+            if(requestWrapper.httpRequestGetParam!=null && requestWrapper.httpRequestGetParam.Count > 0)
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                foreach(var urlParam in requestWrapper.httpRequestGetParam)
+                {
+                    stringBuilder.Append(urlParam.Key + "=" + urlParam.Value+"&");
+                }
+                url += "?" + stringBuilder.ToString();
+            }
+            requestWrapper.RequestUrl = url;
             return requestWrapper;
         }
 
@@ -72,6 +81,6 @@ namespace RestTemplate.http
         /// </summary>
         /// <param name="args"></param>
         /// <param name="httpRequestContent"></param>
-        protected abstract void wrapperRequestContent(object[] args, HttpContent httpRequestContent);
+        protected abstract void wrapperRequestContent(object[] args, RequestWrapper requestWrapper);
     }
 }
