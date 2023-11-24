@@ -52,6 +52,7 @@
     <Compile Include="attribute\HttpRequestParamAttribute.cs" />
     <Compile Include="attribute\RestTemplateAttribute.cs" />
     <Compile Include="bo\User.cs" />
+    <Compile Include="CpqResponse.cs" />
     <Compile Include="http\BaseHttpHandler.cs" />
     <Compile Include="http\DefaultHttpHandler.cs" />
     <Compile Include="http\DefaultResponseMessageMappingHandler.cs" />

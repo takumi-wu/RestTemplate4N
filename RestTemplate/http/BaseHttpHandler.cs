@@ -13,7 +13,7 @@ namespace RestTemplate.http
     public abstract class BaseHttpHandler
     {
         // 动态选择
-        private IRestResponseMessageMappingHandler restResponseMessageMappingHandler ;
+        private IRestResponseMessageMappingHandler restResponseMessageMappingHandler =new DefaultResponseMessageMappingHandler();
 
         public Object SendHttpRequest(Object target ,MethodBase method, IMethodCallMessage callMessage)
         {
@@ -50,7 +50,7 @@ namespace RestTemplate.http
             Attribute methodAttr = null;
             methodAttr = method.GetCustomAttribute(typeof(HttpRequestMappingAttribute));
             Type returnType = ((MethodInfo)method).ReturnType;
-            if (returnType != null && returnType ==typeof(void))
+            if (returnType != null && returnType !=typeof(void))
             {
                 requestWrapper.returnType = returnType;
             }
@@ -73,6 +73,7 @@ namespace RestTemplate.http
                 url += "?" + stringBuilder.ToString();
             }
             requestWrapper.RequestUrl = url;
+            requestWrapper.httpMethod = httpMethod;
             return requestWrapper;
         }
 

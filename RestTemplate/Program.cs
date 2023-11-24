@@ -16,11 +16,8 @@ namespace RestTemplate
 
             ITestService testService = RestContext.getProxy<ITestService>();
 
-            User user = new User();
-            user.username = "xxxx";
-            user.password = "xxxx";
-            user.loginStatus = 1;
-            string response = testService.Login(user);
+
+            CpqResponse response = testService.Login("55f7bcba6bf23bd5979bf663d4058d8c1cd3c52a10b08c73d4ebb7067d4119cd");
             Console.WriteLine(response);
             Console.Read();
         }

@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace RestTemplate
 {
-    [RestTemplate(url: "http://xxxx")]
+    [RestTemplate(url: "http://std.sc.5mall.com/user/thirdparty_auth/")]
     public interface ITestService
     {
         [HttpRequestMapping(methodName: "login", httpMethod:"POST")]
-        string Login([HttpRequestBody]User user);
+        CpqResponse Login([HttpRequestBody]string tp);
     }
 }
