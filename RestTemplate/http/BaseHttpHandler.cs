@@ -12,8 +12,7 @@ namespace RestTemplate.http
 {
     public abstract class BaseHttpHandler
     {
-        // 动态选择
-        private IRestResponseMessageMappingHandler restResponseMessageMappingHandler =new DefaultResponseMessageMappingHandler();
+        private IRestResponseMessageMappingHandler restResponseMessageMappingHandler = new DefaultResponseMessageMappingHandler();
 
         public Object SendHttpRequest(Object target ,MethodBase method, IMethodCallMessage callMessage)
         {

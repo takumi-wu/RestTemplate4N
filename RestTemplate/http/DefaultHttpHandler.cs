@@ -3,6 +3,7 @@ using RestTemplate.attribute;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Text;
@@ -31,6 +32,7 @@ namespace RestTemplate.http
                     }
 
                     request.Content = requestWrapper.httpRequestContent;
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                     response = await client.SendAsync(request);
                     response.EnsureSuccessStatusCode(); // 确保响应状态码为成功的状态
 
