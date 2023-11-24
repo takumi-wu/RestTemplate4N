@@ -35,7 +35,7 @@ namespace RestTemplate
                 types.AsParallel().ForAll(x =>
                 {
                     // 是接口并且有RestTemplateAttribute标识
-                    if (x.IsInterface && x.GetCustomAttribute(typeof(RestTemplateAttribute)) != null)
+                    if (x.IsInterface && x.GetCustomAttribute(typeof(FeginAttribute)) != null)
                     {
                         Type t = RestInterfaceFactory.createType(x);
                         Object obj = Activator.CreateInstance(t);

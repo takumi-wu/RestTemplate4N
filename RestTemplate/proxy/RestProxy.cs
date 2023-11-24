@@ -18,7 +18,6 @@ namespace RestTemplate.proxy
     {
         private Object target;
         private BaseHttpHandler baseHttpHandler;
-        private IRestResponseMessageMappingHandler restResponseMessageMappingHandler;
         public RestProxy(Object target,BaseHttpHandler baseHttpHandler, Type baseType) : base(baseType)
         {
             this.target = target;

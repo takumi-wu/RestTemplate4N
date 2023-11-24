@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace RestTemplate.attribute
 {
     [AttributeUsage(AttributeTargets.Interface)]
-    public class RestTemplateAttribute:Attribute
+    public class FeginAttribute:Attribute
     {
        public string requestUrl { get; set; }
-       public  RestTemplateAttribute(String url)
+       public  FeginAttribute(String url)
         {
             this.requestUrl = url;
         }

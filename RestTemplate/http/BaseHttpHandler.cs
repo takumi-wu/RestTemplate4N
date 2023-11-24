@@ -36,7 +36,7 @@ namespace RestTemplate.http
             object[] args = callMessage.Args;
             // 封装请求内容和请求头
             wrapperRequestContent(args, requestWrapper);
-            RestTemplateAttribute attr = (RestTemplateAttribute)target.GetType().GetCustomAttribute(typeof(RestTemplateAttribute));
+            FeginAttribute attr = (FeginAttribute)target.GetType().GetCustomAttribute(typeof(FeginAttribute));
             if (attr == null)
             {
                 throw new Exception("接口未标识RestTemplateAttribute");

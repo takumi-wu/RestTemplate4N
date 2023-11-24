@@ -28,14 +28,14 @@ namespace RestTemplate.proxy
             // 创建模块
             ModuleBuilder moduleBuilder = assemblyBuilder.DefineDynamicModule("DynamicModule");
 
-            if (_type.GetCustomAttribute(typeof(RestTemplateAttribute)) == null)
+            if (_type.GetCustomAttribute(typeof(FeginAttribute)) == null)
             {
                 throw new Exception("没有标识RestTemplateAttribute");
             }
             // 创建类型
             TypeBuilder typeBuilder = moduleBuilder.DefineType(_type.Name+"_Proxy", TypeAttributes.Public,null,new Type[] { _type });
 
-            var customAttributeBuilder = new CustomAttributeBuilder(typeof(RestTemplateAttribute).GetConstructor(new Type[]{ typeof(string) }), new object[] { ((RestTemplateAttribute)_type.GetCustomAttribute(typeof(RestTemplateAttribute))).requestUrl });
+            var customAttributeBuilder = new CustomAttributeBuilder(typeof(FeginAttribute).GetConstructor(new Type[]{ typeof(string) }), new object[] { ((FeginAttribute)_type.GetCustomAttribute(typeof(FeginAttribute))).requestUrl });
 
             typeBuilder.SetCustomAttribute(customAttributeBuilder);
             MethodInfo[] methods = _type.GetMethods();

@@ -50,7 +50,7 @@
     <Compile Include="attribute\HttpRequestMappingAttribute.cs" />
     <Compile Include="attribute\HttpRequestBodyAttribute.cs" />
     <Compile Include="attribute\HttpRequestParamAttribute.cs" />
-    <Compile Include="attribute\RestTemplateAttribute.cs" />
+    <Compile Include="attribute\FeginAttribute.cs" />
     <Compile Include="bo\User.cs" />
     <Compile Include="CpqResponse.cs" />
     <Compile Include="http\BaseHttpHandler.cs" />
