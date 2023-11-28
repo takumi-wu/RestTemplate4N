@@ -34,8 +34,16 @@ namespace RestTemplate.http
             string url = "";
             HttpMethod httpMethod = new HttpMethod("POST");
             object[] args = callMessage.Args;
+
+            ParameterInfo[] parameterInfos = method.GetParameters();
+            Dictionary<ParameterInfo, object> methodArgs = new Dictionary<ParameterInfo, object>();
+            for(int i = 0; i < parameterInfos.Length; i++)
+            {
+                methodArgs.Add(parameterInfos[i], args[i]);
+            }
+
             // 封装请求内容和请求头
-            wrapperRequestContent(args, requestWrapper);
+            wrapperRequestContent(methodArgs, requestWrapper);
             FeginAttribute attr = (FeginAttribute)target.GetType().GetCustomAttribute(typeof(FeginAttribute));
             if (attr == null)
             {
@@ -81,6 +89,6 @@ namespace RestTemplate.http
         /// </summary>
         /// <param name="args"></param>
         /// <param name="httpRequestContent"></param>
-        protected abstract void wrapperRequestContent(object[] args, RequestWrapper requestWrapper);
+        protected abstract void wrapperRequestContent(Dictionary<ParameterInfo, object> args, RequestWrapper requestWrapper);
     }
 }

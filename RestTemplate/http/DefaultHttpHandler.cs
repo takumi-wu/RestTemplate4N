@@ -46,42 +46,42 @@ namespace RestTemplate.http
             }
         }
 
-        protected override void wrapperRequestContent(object[] args, RequestWrapper requestWrapper)
+        protected override void wrapperRequestContent(Dictionary<ParameterInfo, object> args, RequestWrapper requestWrapper)
         {
             
-            foreach (object item in args)
+            foreach (ParameterInfo key in args.Keys)
             {
-                HttpRequestParamAttribute getParam = (HttpRequestParamAttribute)item.GetType().GetCustomAttribute(typeof(HttpRequestParamAttribute), false);
+                HttpRequestParamAttribute getParam = (HttpRequestParamAttribute)key.GetCustomAttribute(typeof(HttpRequestParamAttribute), false);
                 // 设置get请求参数
                 if (getParam != null)
                 {
-                    if (item.GetType().IsValueType)
+                    if (args[key].GetType().IsValueType)
                     {
-                        requestWrapper.httpRequestGetParam.Add(getParam.ParamName, Convert.ToString(item));
+                        requestWrapper.httpRequestGetParam.Add(getParam.ParamName, Convert.ToString(args[key]));
                     }
                     else
                     {
-                        requestWrapper.httpRequestGetParam.Add(getParam.ParamName, JsonConvert.SerializeObject(item));
+                        requestWrapper.httpRequestGetParam.Add(getParam.ParamName, JsonConvert.SerializeObject(args[key]));
                     }
                 }
                 // 设置httpHeader 参数
-                HttpHeaderAttribute requestHeader = (HttpHeaderAttribute)item.GetType().GetCustomAttribute(typeof(HttpHeaderAttribute), false);
+                HttpHeaderAttribute requestHeader = (HttpHeaderAttribute)key.GetCustomAttribute(typeof(HttpHeaderAttribute), false);
                 if (requestHeader != null)
                 {
-                    if (item.GetType().IsValueType)
+                    if (args[key].GetType().IsValueType)
                     {
-                        requestWrapper.httpRequestHeader.Add(getParam.ParamName, Convert.ToString(item));
+                        requestWrapper.httpRequestHeader.Add(getParam.ParamName, Convert.ToString(args[key]));
                     }
                     else
                     {
-                        requestWrapper.httpRequestHeader.Add(getParam.ParamName, JsonConvert.SerializeObject(item));
+                        requestWrapper.httpRequestHeader.Add(getParam.ParamName, JsonConvert.SerializeObject(args[key]));
                     }
                 }
                 // 设置请求体
-                HttpRequestBodyAttribute requestBody = (HttpRequestBodyAttribute)item.GetType().GetCustomAttribute(typeof(HttpRequestBodyAttribute), false);
+                HttpRequestBodyAttribute requestBody = (HttpRequestBodyAttribute)key.GetCustomAttribute(typeof(HttpRequestBodyAttribute), false);
                 if (requestBody != null)
                 {
-                    requestWrapper.httpRequestContent = new StringContent(JsonConvert.SerializeObject(item), Encoding.UTF8, "application/json");
+                    requestWrapper.httpRequestContent = new StringContent(JsonConvert.SerializeObject(args[key]), Encoding.UTF8, "application/json");
                 }
             }
         }
