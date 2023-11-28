@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace RestTemplate
 {
-    [Fegin(url: "http://std.sc.5mall.com/user/thirdparty_auth/")]
+    [Fegin(url: "http://std.sc.5mall.com")]
     public interface ITestService
     {
-        [HttpRequestMapping(methodName: "login", httpMethod:"POST")]
+        [HttpRequestMapping(methodName: "/user/thirdparty_auth/login", httpMethod:"POST")]
         CpqResponse Login([HttpRequestBody]string tp);
     }
 }

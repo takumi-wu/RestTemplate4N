@@ -53,7 +53,7 @@ namespace RestTemplate.http
             {
                 requestWrapper.returnType = returnType;
             }
-            if (methodAttr == null)
+            if (methodAttr != null)
             {
                string methodUrl = ((HttpRequestMappingAttribute)methodAttr).MethodName;
                 if (methodUrl.Trim()!="" && methodUrl.Trim().IndexOf('/') == 0)
