@@ -20,9 +20,13 @@ namespace RestTemplate
         /// <param name="assembly"></param>
         public static void init()
         {
+            if (restTemplates != null && restTemplates.Count > 0)
+            {
+                return;
+            }
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            
-            foreach(Assembly assembly in assemblies)
+
+            foreach (Assembly assembly in assemblies)
             {
                 BaseHttpHandler baseHttpHandler = new DefaultHttpHandler();
                 // 请求默认实现

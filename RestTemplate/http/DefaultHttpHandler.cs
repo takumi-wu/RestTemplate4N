@@ -48,14 +48,14 @@ namespace RestTemplate.http
 
         protected override void wrapperRequestContent(Dictionary<ParameterInfo, object> args, RequestWrapper requestWrapper)
         {
-            
+
             foreach (ParameterInfo key in args.Keys)
             {
                 HttpRequestParamAttribute getParam = (HttpRequestParamAttribute)key.GetCustomAttribute(typeof(HttpRequestParamAttribute), false);
                 // 设置get请求参数
                 if (getParam != null)
                 {
-                    if (args[key].GetType().IsValueType)
+                    if (args[key].GetType().Name.ToLower() == "string" || args[key].GetType().IsValueType)
                     {
                         requestWrapper.httpRequestGetParam.Add(getParam.ParamName, Convert.ToString(args[key]));
                     }
@@ -68,13 +68,13 @@ namespace RestTemplate.http
                 HttpHeaderAttribute requestHeader = (HttpHeaderAttribute)key.GetCustomAttribute(typeof(HttpHeaderAttribute), false);
                 if (requestHeader != null)
                 {
-                    if (args[key].GetType().IsValueType)
+                    if (args[key].GetType().Name.ToLower() == "string" || args[key].GetType().IsValueType)
                     {
-                        requestWrapper.httpRequestHeader.Add(getParam.ParamName, Convert.ToString(args[key]));
+                        requestWrapper.httpRequestHeader.Add(requestHeader.ParamName, Convert.ToString(args[key]));
                     }
                     else
                     {
-                        requestWrapper.httpRequestHeader.Add(getParam.ParamName, JsonConvert.SerializeObject(args[key]));
+                        requestWrapper.httpRequestHeader.Add(requestHeader.ParamName, JsonConvert.SerializeObject(args[key]));
                     }
                 }
                 // 设置请求体

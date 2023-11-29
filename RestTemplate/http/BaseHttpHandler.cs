@@ -61,12 +61,12 @@ namespace RestTemplate.http
             {
                 requestWrapper.returnType = returnType;
             }
-            if (methodAttr == null)
+            if (methodAttr != null)
             {
                string methodUrl = ((HttpRequestMappingAttribute)methodAttr).MethodName;
                 if (methodUrl.Trim()!="" && methodUrl.Trim().IndexOf('/') == 0)
                 {
-                    url = url + methodUrl.Trim().Substring(1, methodUrl.Length - 1);
+                    url = url + methodUrl.Trim();
                     httpMethod = new HttpMethod(((HttpRequestMappingAttribute)methodAttr).HttpMethod);
                 }
             }
